@@ -1,0 +1,65 @@
+ciscoasa#sh run
+: Saved
+:
+ASA Version 8.4(2)
+!
+hostname ciscoasa
+names
+!
+interface Ethernet0/0
+!
+interface Ethernet0/1
+!
+interface Ethernet0/2
+!
+interface Ethernet0/3
+!
+interface Ethernet0/4
+!
+interface Ethernet0/5
+!
+interface Ethernet0/6
+!
+interface Ethernet0/7
+!
+interface Vlan1
+ nameif INSIDE
+ security-level 100
+ ip address 172.16.0.1 255.255.255.0
+!
+interface Vlan2
+ nameif OUTSIDE
+ security-level 0
+ ip address 203.0.113.2 255.255.255.0
+!
+object network BRANCH
+ subnet 192.168.90.0 255.255.255.0
+object network HQ
+ subnet 192.168.0.0 255.255.0.0
+object network INSIDE-NET
+ subnet 192.168.0.0 255.255.0.0
+ nat (INSIDE,OUTSIDE) dynamic interface
+object network WEB-SERVER
+ host 192.168.150.2
+ nat (INSIDE,OUTSIDE) static 203.0.113.1
+!
+route INSIDE 0.0.0.0 0.0.0.0 203.0.113.1 1
+!
+access-list OUTSIDE_IN extended permit tcp any host 192.168.150.2 eq www
+access-list OUTSIDE_IN extended permit tcp any host 192.168.150.2 eq 443
+!
+!
+access-group OUTSIDE_IN in interface OUTSIDE
+!
+!
+!
+!
+!
+telnet timeout 5
+ssh timeout 5
+!
+!
+!
+ciscoasa#
+ciscoasa#
+ciscoasa
