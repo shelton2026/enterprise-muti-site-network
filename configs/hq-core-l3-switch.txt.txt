@@ -1,0 +1,171 @@
+Building configuration...
+
+Current configuration : 2930 bytes
+!
+version 12.2(37)SE1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Switche1
+!
+!
+!
+!
+!
+!
+ip routing
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip dhcp snooping vlan 10,20,30,150
+ip dhcp snooping
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree vlan 1,10 priority 0
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/1
+!
+interface FastEthernet0/2
+!
+interface FastEthernet0/3
+!
+interface FastEthernet0/4
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+ ip dhcp snooping trust
+ switchport trunk allowed vlan 10,20,30,150
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface FastEthernet0/18
+ switchport trunk allowed vlan 10,20,30,150
+ switchport trunk encapsulation dot1q
+!
+interface FastEthernet0/19
+ switchport trunk allowed vlan 10,20,30,150
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface FastEthernet0/20
+ ip dhcp snooping trust
+ switchport trunk allowed vlan 10,20,30,150
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+ no switchport
+ ip address 192.168.1.2 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan10
+ mac-address 00e0.8f6c.ab01
+ ip address 192.168.10.1 255.255.255.0
+ ip helper-address 192.168.200.10
+ ip helper-address 192.168.150.10
+!
+interface Vlan20
+ mac-address 00e0.8f6c.ab02
+ ip address 192.168.20.1 255.255.255.0
+ ip helper-address 192.168.200.10
+ ip helper-address 192.168.150.10
+ ip access-group SERVER_PROTECT in
+!
+interface Vlan30
+ mac-address 00e0.8f6c.ab03
+ ip address 192.168.30.1 255.255.255.0
+ ip helper-address 192.168.200.10
+ ip helper-address 192.168.150.10
+!
+interface Vlan150
+ mac-address 00e0.8f6c.ab04
+ ip address 192.168.150.1 255.255.255.0
+ ip helper-address 192.168.200.10
+ ip helper-address 192.168.150.10
+ ip access-group SERVER_PROTECT out
+!
+router ospf 1
+ log-adjacency-changes
+ network 192.168.0.0 0.0.255.255 area 0
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 176.16.0.2 
+!
+ip flow-export version 9
+!
+!
+ip access-list extended SERVER_PROTECT
+ permit tcp any 192.168.150.0 0.0.0.255 eq www
+ permit tcp any 192.168.150.0 0.0.0.255 eq 443
+ permit ip 192.168.0.0 0.0.255.255 192.168.0.0 0.0.255.255
+ deny ip any 192.168.150.0 0.0.0.255
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+!
+end
