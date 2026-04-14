@@ -1,4 +1,4 @@
-# nterprise Multi-Site Network 2 (OSPF + VPN + Firewall)
+# Enterprise Multi-Site Network 2 (OSPF + VPN + Firewall)
 
 ## 📌 Overview
 Designed and implemented a secure enterprise network connecting a headquarters (HQ) and multiple branch offices. This project simulates a real-world company network with routing, switching, and security technologies.
