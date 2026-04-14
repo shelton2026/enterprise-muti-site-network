@@ -53,7 +53,7 @@ Designed and implemented a secure enterprise network connecting a headquarters (
 - NAT operation
 - VPN tunnel status
 - Web server access
-
+- DNS-server
 ---
 
 ## 🚀 Outcome
